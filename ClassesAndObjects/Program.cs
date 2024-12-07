@@ -13,6 +13,7 @@
 
             Car firstCar = new Car("E500", "Mercedes", 1998, true);
             Vehicle vehicle  = new Vehicle(true);
+            Cat puffy = new Cat();
 
 
             firstCar.DisplayInfo();
@@ -25,6 +26,9 @@
 
             Console.WriteLine(firstCar.ShowMe());
             Console.WriteLine(vehicle.ShowMe());
+
+            puffy.Eat();
+            Animal.MakeSound();
         }
     }
 }
