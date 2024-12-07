@@ -18,5 +18,7 @@ namespace ClassesAndObjects
         public void Horn() => Console.Beep(); 
 
         public void IsAvailable() => Console.WriteLine(Available);
+
+        public virtual string ShowMe() => "What do you want to see?";
     }
 }

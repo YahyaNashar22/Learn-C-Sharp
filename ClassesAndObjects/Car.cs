@@ -30,5 +30,7 @@ namespace ClassesAndObjects
         public void DisplayInfo() => Console.WriteLine($"Type: {Type}\nCompany: {Company}\nYear: {Year}");
 
         public void ChangeAvailability() => Available = !Available;
+
+        public override string ShowMe() => base.ShowMe() + "\nCan you see me now ?";
     }
 }

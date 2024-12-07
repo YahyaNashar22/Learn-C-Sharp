@@ -12,6 +12,8 @@
             Console.WriteLine("--------------------------------");
 
             Car firstCar = new Car("E500", "Mercedes", 1998, true);
+            Vehicle vehicle  = new Vehicle(true);
+
 
             firstCar.DisplayInfo();
             firstCar.Type = "test";
@@ -20,6 +22,9 @@
             firstCar.IsAvailable();
             firstCar.ChangeAvailability();
             firstCar.IsAvailable();
+
+            Console.WriteLine(firstCar.ShowMe());
+            Console.WriteLine(vehicle.ShowMe());
         }
     }
 }
