@@ -11,13 +11,15 @@
             Console.WriteLine("------Classes And Objects-------");
             Console.WriteLine("--------------------------------");
 
-            Car firstCar = new Car("E500", "Mercedes", 1998);
+            Car firstCar = new Car("E500", "Mercedes", 1998, true);
 
-            firstCar.displayInfo();
+            firstCar.DisplayInfo();
             firstCar.Type = "test";
-            firstCar.displayInfo();
-            firstCar.horn();
-
+            firstCar.DisplayInfo();
+            firstCar.Horn();
+            firstCar.IsAvailable();
+            firstCar.ChangeAvailability();
+            firstCar.IsAvailable();
         }
     }
 }
