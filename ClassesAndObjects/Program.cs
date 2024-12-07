@@ -14,6 +14,7 @@
             Car firstCar = new Car("E500", "Mercedes", 1998, true);
             Vehicle vehicle  = new Vehicle(true);
             Cat puffy = new Cat();
+            Turtle ten = new Turtle();
 
 
             firstCar.DisplayInfo();
@@ -27,8 +28,12 @@
             Console.WriteLine(firstCar.ShowMe());
             Console.WriteLine(vehicle.ShowMe());
 
+            firstCar.Drive();
+
             puffy.Eat();
             Animal.MakeSound();
+
+            ten.Eat();
         }
     }
 }

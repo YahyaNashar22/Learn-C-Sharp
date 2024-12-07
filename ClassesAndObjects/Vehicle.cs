@@ -21,4 +21,10 @@ namespace ClassesAndObjects
 
         public virtual string ShowMe() => "What do you want to see?";
     }
+
+    public interface IFourWheels
+    {
+        void Drive();
+
+    }
 }

@@ -16,5 +16,14 @@ namespace ClassesAndObjects
     internal class Cat : Animal
     {
         public override void Eat() => Console.WriteLine("Cat is eating tuna");
+
+    }
+
+    internal sealed class Turtle : Animal
+    {
+        public override void Eat()
+        {
+            Console.WriteLine("Turtle is eating...");
+        }
     }
 }

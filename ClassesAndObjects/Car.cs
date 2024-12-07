@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassesAndObjects
 {
-    internal class Car : Vehicle
+    internal class Car : Vehicle, IFourWheels
     {
         #region fields
         //string type;
@@ -32,5 +32,8 @@ namespace ClassesAndObjects
         public void ChangeAvailability() => Available = !Available;
 
         public override string ShowMe() => base.ShowMe() + "\nCan you see me now ?";
+
+        public void Drive() => Console.WriteLine("I DRIVE IN FOUR WHEELS!");
+        
     }
 }
