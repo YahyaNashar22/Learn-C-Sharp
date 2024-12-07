@@ -37,18 +37,48 @@
 
 
             #region Callback methods
-            void ShowResult(int result) => Console.WriteLine($"The Result is --> {result}");
-
-            void Sum (int x, int y, Action<int> ShowResult)
-            {
-                int result = x + y;
-                ShowResult(result);
-            }
+            //void ShowResult(int result) => Console.WriteLine($"The Result is --> {result}");
 
 
-            Sum(1, 3, ShowResult);
+            //Calculate calculateMult = new Calculate(Multiply);
+
+            //void Sum(int x, int y, Action<int> showResult)
+            //{
+            //    int result = x + y;
+            //    showResult(result);
+            //}
+
+            //void Substract(int x, int y, Action<int> substract)
+            //{
+            //    int result = x - y;
+            //    substract(result);
+            //}
+
+            //void Multiply(int x, int y)
+            //{
+            //    Console.WriteLine($"{x} * {y} = {x * y}");
+            //}
+
+
+            //Sum(1, 3, ShowResult);
+
+            //// Anonymous callback
+            //Substract(10, 3, (result) =>
+            //    {
+            //        Console.WriteLine($"The Substraction result is --> {result}");
+            //    });
+
+            //calculateMult(4, 10);
 
             #endregion
+
+            Circle circle = new Circle();
+            Circle.CircleDelegate circleDelegate = new Circle.CircleDelegate(circle.Area);
+            circleDelegate += circle.Perimeter;
+
+            circleDelegate(20);
         }
     }
+    public delegate void Calculate(int x, int y);
+
 }
