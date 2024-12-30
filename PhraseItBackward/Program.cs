@@ -34,8 +34,11 @@
 
             for (int i = 0; i < numbers.Length; i++)
             {
+
                 Console.WriteLine($"Enter the #{i + 1} number:");
                 success = int.TryParse(Console.ReadLine(), out numbers[i]);
+
+
                 if (!success)
                 {
                     Console.WriteLine("Invalid integer");
