@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericClassesAndDelegates"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenderMachine", "VenderMachine\VenderMachine.csproj", "{FD6B1B14-D651-4F6F-91D2-2E54EF2C0070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhraseItBackward", "PhraseItBackward\PhraseItBackward.csproj", "{933853B4-2647-4B57-8D69-8C0DFCBB45C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhraseItBackward", "PhraseItBackward\PhraseItBackward.csproj", "{933853B4-2647-4B57-8D69-8C0DFCBB45C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunWithAndroid", "FunWithAndroid\FunWithAndroid.csproj", "{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{933853B4-2647-4B57-8D69-8C0DFCBB45C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{933853B4-2647-4B57-8D69-8C0DFCBB45C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{933853B4-2647-4B57-8D69-8C0DFCBB45C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
