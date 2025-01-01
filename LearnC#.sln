@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenderMachine", "VenderMach
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhraseItBackward", "PhraseItBackward\PhraseItBackward.csproj", "{933853B4-2647-4B57-8D69-8C0DFCBB45C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunWithAndroid", "FunWithAndroid\FunWithAndroid.csproj", "{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunWithAndroid", "FunWithAndroid\FunWithAndroid.csproj", "{7450FA14-2B8E-4FD3-8314-BBE1F7387AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticMagic", "StaticMagic\StaticMagic.csproj", "{DEF8797D-4992-40AA-847D-3252EDF13C57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticMagic", "StaticMagic\StaticMagic.csproj", "{DEF8797D-4992-40AA-847D-3252EDF13C57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubbleSort", "BubbleSort\BubbleSort.csproj", "{D27435DB-D9E0-4C40-8C4A-D1C9B7553D4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubbleSort", "BubbleSort\BubbleSort.csproj", "{D27435DB-D9E0-4C40-8C4A-D1C9B7553D4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessTheNumber", "GuessTheNumber\GuessTheNumber.csproj", "{4EC279A2-2AC7-477A-B4F3-535737D4E22D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{D27435DB-D9E0-4C40-8C4A-D1C9B7553D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D27435DB-D9E0-4C40-8C4A-D1C9B7553D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D27435DB-D9E0-4C40-8C4A-D1C9B7553D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EC279A2-2AC7-477A-B4F3-535737D4E22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EC279A2-2AC7-477A-B4F3-535737D4E22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EC279A2-2AC7-477A-B4F3-535737D4E22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EC279A2-2AC7-477A-B4F3-535737D4E22D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
