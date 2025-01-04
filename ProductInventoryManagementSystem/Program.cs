@@ -124,5 +124,17 @@
                 }
             }
         }
+
+        static void SaveAndExit()
+        {
+            StreamWriter streamWriter = new StreamWriter("inventory.txt");
+            for (int i = 0; i < productNames.Count; i ++)
+            {
+                streamWriter.WriteLine($"{i + 1} - {productNames[i]}: {productPrices[i]}");
+            }
+            streamWriter.Close();
+
+            Environment.Exit(0);
+        }
     }
 }
