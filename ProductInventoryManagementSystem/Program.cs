@@ -25,6 +25,8 @@
                     case Screens.Main:  Console.Clear();  MainMenu(); break;
                     case Screens.AddItem: Console.Clear();  AddItemsScreen(); break;
                     case Screens.ViewItems: Console.Clear();  ViewItemsScreen(); break;
+                    case Screens.DeleteItem: Console.Clear(); DeleteItemsScreen(); break;
+
                 }
             }
         }
@@ -85,7 +87,7 @@
 
             for (int i = 0; i < productNames.Count; i++)
             {
-                Console.WriteLine($"{productNames[i]} - {productPrices[i]}$");
+                Console.WriteLine($"{i+1} - {productNames[i]}: {productPrices[i]}$");
             }
 
             Console.WriteLine("[1] - Go Back");
@@ -93,6 +95,33 @@
             if (answer == 1)
             {
                 screen = Screens.Main;
+            }
+        }
+
+        static void DeleteItemsScreen()
+        {
+            for (int i = 0; i < productNames.Count; i++)
+            {
+                Console.WriteLine($"{i+1} - {productNames[i]}: {productPrices[i]}$");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Select Item Index To Delete:");
+            while (true)
+            {
+                string answer = Console.ReadLine();
+                if (answer == "")
+                {
+                    screen = Screens.Main;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Deleted {productNames[int.Parse(answer)]}");
+
+                    productNames.RemoveAt(int.Parse(answer));
+                    productPrices.RemoveAt(int.Parse(answer));
+                }
             }
         }
     }
