@@ -1,4 +1,6 @@
-﻿namespace ProductInventoryManagementSystem
+﻿using System.IO;
+
+namespace ProductInventoryManagementSystem
 {
     enum Screens
     {
@@ -12,21 +14,20 @@
     internal class Program
     {
         static Screens screen = Screens.Main;
-        static List<string> productNames = new List<string>();
-        static List<double> productPrices = new List<double>();
-
+        static List<string> products = new List<string>();
 
         static void Main(string[] args)
         {
+            LoadItems();
+
             while (true)
             {
                 switch (screen)
                 {
-                    case Screens.Main:  Console.Clear();  MainMenu(); break;
-                    case Screens.AddItem: Console.Clear();  AddItemsScreen(); break;
-                    case Screens.ViewItems: Console.Clear();  ViewItemsScreen(); break;
+                    case Screens.Main: Console.Clear(); MainMenu(); break;
+                    case Screens.AddItem: Console.Clear(); AddItemsScreen(); break;
+                    case Screens.ViewItems: Console.Clear(); ViewItemsScreen(); break;
                     case Screens.DeleteItem: Console.Clear(); DeleteItemsScreen(); break;
-
                 }
             }
         }
@@ -50,7 +51,7 @@
                 case (1): screen = Screens.AddItem; break;
                 case (2): screen = Screens.ViewItems; break;
                 case (3): screen = Screens.DeleteItem; break;
-                case (4): Environment.Exit(0); break;
+                case (4): SaveAndExit(); break;
             }
 
         }
@@ -58,7 +59,7 @@
         static void AddItemsScreen()
         {
             string productName;
-            double productPrice;
+            string productPrice;
 
             while (true)
             {
@@ -72,10 +73,9 @@
                 else
                 {
                     Console.Write("Enter the product's price:");
-                    productPrice = double.Parse(Console.ReadLine());
+                    productPrice = Console.ReadLine();
 
-                    productNames.Add(productName);
-                    productPrices.Add(productPrice);
+                    products.Add($"{productName}: {productPrice}");
                 }
 
             }
@@ -85,9 +85,9 @@
         {
             Console.WriteLine("Available item in the inventory:");
 
-            for (int i = 0; i < productNames.Count; i++)
+            for (int i = 0; i < products.Count; i++)
             {
-                Console.WriteLine($"{i+1} - {productNames[i]}: {productPrices[i]}$");
+                Console.WriteLine($"{i + 1} - {products[i]}$");
             }
 
             Console.WriteLine("[1] - Go Back");
@@ -100,9 +100,9 @@
 
         static void DeleteItemsScreen()
         {
-            for (int i = 0; i < productNames.Count; i++)
+            for (int i = 0; i < products.Count; i++)
             {
-                Console.WriteLine($"{i+1} - {productNames[i]}: {productPrices[i]}$");
+                Console.WriteLine($"{i + 1} - {products[i]}$");
             }
 
             Console.WriteLine();
@@ -117,10 +117,9 @@
                 }
                 else
                 {
-                    Console.WriteLine($"Deleted {productNames[int.Parse(answer)]}");
+                    Console.WriteLine($"Deleted {products[int.Parse(answer)]}");
 
-                    productNames.RemoveAt(int.Parse(answer));
-                    productPrices.RemoveAt(int.Parse(answer));
+                    products.RemoveAt(int.Parse(answer));
                 }
             }
         }
@@ -128,13 +127,40 @@
         static void SaveAndExit()
         {
             StreamWriter streamWriter = new StreamWriter("inventory.txt");
-            for (int i = 0; i < productNames.Count; i ++)
+            for (int i = 0; i < products.Count; i++)
             {
-                streamWriter.WriteLine($"{i + 1} - {productNames[i]}: {productPrices[i]}");
+                streamWriter.WriteLine($"{i + 1} - {products[i]}");
             }
             streamWriter.Close();
 
             Environment.Exit(0);
+        }
+
+        static void LoadItems()
+        {
+            try
+            {
+                using (StreamReader streamReader = new StreamReader("inventory.txt"))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        string input = streamReader.ReadLine();
+                        string[] parts = input.Split(new[] { "- " }, StringSplitOptions.None);
+                        if (parts.Length > 1)
+                        {
+                            products.Add(parts[1].Trim());
+                        }
+
+                    }
+                    streamReader.Close();
+
+                }
+            }
+            catch
+            {
+                Console.WriteLine("No previous inventory found!");
+            }
+
         }
     }
 }
