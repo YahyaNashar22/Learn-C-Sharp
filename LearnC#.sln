@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubbleSort", "BubbleSort\Bu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessTheNumber", "GuessTheNumber\GuessTheNumber.csproj", "{4EC279A2-2AC7-477A-B4F3-535737D4E22D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamWriterPlay", "StreamWriterPlay\StreamWriterPlay.csproj", "{58AC4471-581E-48B3-A023-9C74AAF115D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamWriterPlay", "StreamWriterPlay\StreamWriterPlay.csproj", "{58AC4471-581E-48B3-A023-9C74AAF115D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventoryManagementSystem", "ProductInventoryManagementSystem\ProductInventoryManagementSystem.csproj", "{17DC87A9-D471-42E1-8A61-7800F3DB21D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductInventoryManagementSystem", "ProductInventoryManagementSystem\ProductInventoryManagementSystem.csproj", "{17DC87A9-D471-42E1-8A61-7800F3DB21D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlarmConsole", "AlarmConsole\AlarmConsole.csproj", "{3904E8FE-1B0D-4C05-8E94-6FE133F48D44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{17DC87A9-D471-42E1-8A61-7800F3DB21D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17DC87A9-D471-42E1-8A61-7800F3DB21D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17DC87A9-D471-42E1-8A61-7800F3DB21D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3904E8FE-1B0D-4C05-8E94-6FE133F48D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3904E8FE-1B0D-4C05-8E94-6FE133F48D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3904E8FE-1B0D-4C05-8E94-6FE133F48D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3904E8FE-1B0D-4C05-8E94-6FE133F48D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
