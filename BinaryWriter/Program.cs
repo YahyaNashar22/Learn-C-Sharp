@@ -10,18 +10,31 @@ namespace BinaryWriterTryout
         Player,
         Enemy
     }
+    interface IGame
+    {
+        IGameObject getGameObject(Guid id);
+    }
 
     interface IGameObject
     {
         GameObjectType Type { get; }
+
+        Guid Id { get; }
         void Save(BinaryWriter writer);
-        void Load(BinaryReader reader);
+        void Load(IGame game, BinaryReader reader);
     }
+
     class Room : IGameObject
     {
         public GameObjectType Type { get { return GameObjectType.Room; } }
+        public Guid Id { get; private set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public Room(Guid id)
+        {
+            Id = id;
+        }
 
         public void Save(BinaryWriter writer)
         {
@@ -29,7 +42,7 @@ namespace BinaryWriterTryout
             writer.Write(Description);
         }
 
-        public void Load(BinaryReader reader)
+        public void Load(IGame game, BinaryReader reader)
         {
             Name = reader.ReadString();
             Description = reader.ReadString();
@@ -40,35 +53,52 @@ namespace BinaryWriterTryout
     {
         public GameObjectType Type { get { return GameObjectType.Player; } }
 
+        public Guid Id { get; private set; }
+
         public string Name { get; set; }
         public int Health { get; set; }
 
-        public void Load(BinaryReader reader)
+        public Room CurrentRoom { get; set; }
+
+        public Player(Guid id)
+        {
+            Id = id;
+        }
+
+        public void Load(IGame game, BinaryReader reader)
         {
             Name = reader.ReadString();
             Health = reader.ReadInt32();
+            var currentRoomId = new Guid(reader.ReadBytes(16));
+            CurrentRoom = (Room)game.getGameObject(currentRoomId);
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(Name);
             writer.Write(Health);
+            writer.Write(CurrentRoom.Id.ToByteArray());
         }
     }
 
     class Enemy : IGameObject
     {
         public GameObjectType Type { get { return GameObjectType.Enemy;  } }
+        public Guid Id { get; private set; }
         public string Name { get; set; }
         public int Health { get; set; }
 
+        public Enemy(Guid id)
+        {
+            Id = id;
+        }
         public void Save(BinaryWriter writer)
         {
             writer.Write(Name);
             writer.Write(Health);
         }
 
-        public void Load(BinaryReader reader)
+        public void Load(IGame game, BinaryReader reader)
         {
             Name = reader.ReadString();
             Health = reader.ReadInt32();
@@ -76,7 +106,7 @@ namespace BinaryWriterTryout
     }
 
 
-    class Game
+    class Game: IGame
     {
         public Player Player { get; set; }
         public List<IGameObject> GameObjects { get; private set; }
@@ -104,6 +134,7 @@ namespace BinaryWriterTryout
                 foreach (var gameObject in game.GameObjects)
                 {
                     bw.Write((int)gameObject.Type);
+                    bw.Write(gameObject.Id.ToByteArray());
                     gameObject.Save(bw);
                 }
             }
@@ -118,22 +149,23 @@ namespace BinaryWriterTryout
                 for (var i = 0; i < gameObjectCount; i++)
                 {
                     var type = (GameObjectType)br.ReadInt32();
+                    var id = new Guid(br.ReadBytes(16));
 
                     IGameObject obj = null;
 
                     switch (type)
                     {
                         case GameObjectType.Room:
-                            obj = new Room();
+                            obj = new Room(id);
                             break;
 
                         case GameObjectType.Player:
-                            game.Player = new Player();
+                            game.Player = new Player(id);
                             obj = game.Player;
                             break;
 
                         case GameObjectType.Enemy:
-                            obj = new Enemy();
+                            obj = new Enemy(id);
                             break;
                     }
                     obj.Load(br);
@@ -151,27 +183,28 @@ namespace BinaryWriterTryout
         {
             var game = new Game();
 
-            var room1 = new Room();
+            var room1 = new Room(Guid.NewGuid());
             room1.Name = "Room 1";
             room1.Description = "This is the description for room 1";
 
-            var room2 = new Room();
+            var room2 = new Room(Guid.NewGuid());
             room2.Name = "Room 2";
             room2.Description = "This is the description for room 2";
 
-            var player = new Player();
+            var player = new Player(Guid.NewGuid());
             player.Name = "yahya";
             player.Health = 100;
 
-            var e1 = new Enemy();
+            var e1 = new Enemy(Guid.NewGuid());
             e1.Name = "Monstoros";
             e1.Health = 80;
 
-            var e2 = new Enemy();
+            var e2 = new Enemy(Guid.NewGuid());
             e2.Name = "Quickiloss";
             e2.Health = 50;
 
             game.Player = player;
+            game.Player.CurrentRoom = room1;
 
             game.AddGameObject(player);
             game.AddGameObject(room1);
@@ -197,6 +230,14 @@ namespace BinaryWriterTryout
                 {
                     Console.WriteLine($"Player Name: {thePlayer.Name}");
                     Console.WriteLine($"Player Health: {thePlayer.Health}%");
+                    if (thePlayer.CurrentRoom != null)
+                    {
+                        Console.WriteLine($"{thePlayer.Name} is current in: {thePlayer.CurrentRoom.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{thePlayer.Name} is not in any room!");
+                    }
                     Console.WriteLine();
                 }
 
