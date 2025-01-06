@@ -12,12 +12,12 @@ namespace BinaryWriterTryout
 
     interface IGameObject
     {
-        GameObjectType Type  { get; }
+        GameObjectType Type { get; }
         void Save(BinaryWriter writer);
         void Load(BinaryReader reader);
     }
-    class Room
-    { 
+    class Room : IGameObject
+    {
         public GameObjectType Type { get { return GameObjectType.Room; } }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -44,7 +44,7 @@ namespace BinaryWriterTryout
 
         public void Load(BinaryReader reader)
         {
-            Name= reader.ReadString();
+            Name = reader.ReadString();
             Health = reader.ReadInt32();
         }
 
@@ -66,13 +66,13 @@ namespace BinaryWriterTryout
             GameObjects = new List<IGameObject>();
         }
 
-        public void AddGameObject (IGameObject room)
+        public void AddGameObject(IGameObject room)
         {
             GameObjects.Add(room);
         }
     }
 
-    
+
     class GamePersistence
     {
         public void SaveGame(string filename, Game game)
@@ -83,6 +83,7 @@ namespace BinaryWriterTryout
 
                 foreach (var gameObject in game.GameObjects)
                 {
+                    bw.Write((int)gameObject.Type);
                     gameObject.Save(bw);
                 }
             }
@@ -96,7 +97,22 @@ namespace BinaryWriterTryout
                 var gameObjectCount = br.ReadInt32();
                 for (var i = 0; i < gameObjectCount; i++)
                 {
-                    // Am I Looking at a Room or Player ???
+                    var type = (GameObjectType)br.ReadInt32();
+
+                    IGameObject obj = null;
+
+                    switch (type)
+                    {
+                        case GameObjectType.Room:
+                            obj = new Room();
+                            break;
+
+                        case GameObjectType.Player:
+                            game.Player = new Player();
+                            obj = game.Player;
+                            break;
+                    }
+                    obj.Load(br);
                 }
             }
             return game;
