@@ -3,13 +3,22 @@ using System.IO;
 
 namespace BinaryWriterTryout
 {
+
+    enum GameObjectType
+    {
+        Room,
+        Player
+    }
+
     interface IGameObject
     {
+        GameObjectType Type  { get; }
         void Save(BinaryWriter writer);
         void Load(BinaryReader reader);
     }
     class Room
     { 
+        public GameObjectType Type { get { return GameObjectType.Room; } }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -28,6 +37,8 @@ namespace BinaryWriterTryout
 
     class Player : IGameObject
     {
+        public GameObjectType Type { get { return GameObjectType.Player; } }
+
         public string Name { get; set; }
         public int Health { get; set; }
 
@@ -68,11 +79,11 @@ namespace BinaryWriterTryout
         {
             using (var bw = new BinaryWriter(File.Open(filename, FileMode.OpenOrCreate)))
             {
-                bw.Write(game.Rooms.Count);
+                bw.Write(game.GameObjects.Count);
 
-                foreach (var room in game.Rooms)
+                foreach (var gameObject in game.GameObjects)
                 {
-                    room.Save(bw);
+                    gameObject.Save(bw);
                 }
             }
         }
@@ -82,13 +93,10 @@ namespace BinaryWriterTryout
             var game = new Game();
             using (var br = new BinaryReader(File.Open(filename, FileMode.Open)))
             {
-                var roomCount = br.ReadInt32();
-                for (var i = 0; i < roomCount; i++)
+                var gameObjectCount = br.ReadInt32();
+                for (var i = 0; i < gameObjectCount; i++)
                 {
-                    var room = new Room();
-                    room.Load(br);
-
-                    game.AddRoom(room);
+                    // Am I Looking at a Room or Player ???
                 }
             }
             return game;
