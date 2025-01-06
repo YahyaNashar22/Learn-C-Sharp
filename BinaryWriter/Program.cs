@@ -7,7 +7,8 @@ namespace BinaryWriterTryout
     enum GameObjectType
     {
         Room,
-        Player
+        Player,
+        Enemy
     }
 
     interface IGameObject
@@ -55,6 +56,25 @@ namespace BinaryWriterTryout
         }
     }
 
+    class Enemy : IGameObject
+    {
+        public GameObjectType Type { get { return GameObjectType.Enemy;  } }
+        public string Name { get; set; }
+        public int Health { get; set; }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Name);
+            writer.Write(Health);
+        }
+
+        public void Load(BinaryReader reader)
+        {
+            Name = reader.ReadString();
+            Health = reader.ReadInt32();
+        }
+    }
+
 
     class Game
     {
@@ -66,9 +86,9 @@ namespace BinaryWriterTryout
             GameObjects = new List<IGameObject>();
         }
 
-        public void AddGameObject(IGameObject room)
+        public void AddGameObject(IGameObject gameObject)
         {
-            GameObjects.Add(room);
+            GameObjects.Add(gameObject);
         }
     }
 
@@ -111,6 +131,10 @@ namespace BinaryWriterTryout
                             game.Player = new Player();
                             obj = game.Player;
                             break;
+
+                        case GameObjectType.Enemy:
+                            obj = new Enemy();
+                            break;
                     }
                     obj.Load(br);
                     game.AddGameObject(obj);
@@ -139,11 +163,21 @@ namespace BinaryWriterTryout
             player.Name = "yahya";
             player.Health = 100;
 
+            var e1 = new Enemy();
+            e1.Name = "Monstoros";
+            e1.Health = 80;
+
+            var e2 = new Enemy();
+            e2.Name = "Quickiloss";
+            e2.Health = 50;
+
             game.Player = player;
 
             game.AddGameObject(player);
             game.AddGameObject(room1);
             game.AddGameObject(room2);
+            game.AddGameObject(e1);
+            game.AddGameObject(e2);
 
             var persistence = new GamePersistence();
             persistence.SaveGame("game1.game", game);
@@ -159,10 +193,18 @@ namespace BinaryWriterTryout
                 }
 
                 var thePlayer = gameObject as Player;
-                if (thePlayer != null )
+                if (thePlayer != null)
                 {
                     Console.WriteLine($"Player Name: {thePlayer.Name}");
                     Console.WriteLine($"Player Health: {thePlayer.Health}%");
+                    Console.WriteLine();
+                }
+
+                var enemy = gameObject as Enemy;
+                if (enemy != null)
+                {
+                    Console.WriteLine($"Enemy Name: {enemy.Name}");
+                    Console.WriteLine($"Enemy Health: {enemy.Health}%");
                     Console.WriteLine();
                 }
             }
