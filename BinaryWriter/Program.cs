@@ -113,6 +113,7 @@ namespace BinaryWriterTryout
                             break;
                     }
                     obj.Load(br);
+                    game.AddGameObject(obj);
                 }
             }
             return game;
@@ -134,17 +135,36 @@ namespace BinaryWriterTryout
             room2.Name = "Room 2";
             room2.Description = "This is the description for room 2";
 
-            game.AddRoom(room1);
-            game.AddRoom(room2);
+            var player = new Player();
+            player.Name = "yahya";
+            player.Health = 100;
+
+            game.Player = player;
+
+            game.AddGameObject(player);
+            game.AddGameObject(room1);
+            game.AddGameObject(room2);
 
             var persistence = new GamePersistence();
             persistence.SaveGame("game1.game", game);
 
             var loadedGame = persistence.LoadGame("game1.game");
-            foreach (var room in loadedGame.Rooms)
+            foreach (var gameObject in loadedGame.GameObjects)
             {
-                Console.WriteLine($"Room: {room.Name}\nDescription: {room.Description}");
-                Console.WriteLine();
+                var room = gameObject as Room;
+                if (room != null)
+                {
+                    Console.WriteLine($"Room: {room.Name}\nDescription: {room.Description}");
+                    Console.WriteLine();
+                }
+
+                var thePlayer = gameObject as Player;
+                if (thePlayer != null )
+                {
+                    Console.WriteLine($"Player Name: {thePlayer.Name}");
+                    Console.WriteLine($"Player Health: {thePlayer.Health}%");
+                    Console.WriteLine();
+                }
             }
 
             Console.ReadKey();
