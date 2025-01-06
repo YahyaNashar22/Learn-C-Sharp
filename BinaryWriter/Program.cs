@@ -3,6 +3,11 @@ using System.IO;
 
 namespace BinaryWriterTryout
 {
+    interface IGameObject
+    {
+        void Save(BinaryWriter writer);
+        void Load(BinaryReader reader);
+    }
     class Room
     { 
         public string Name { get; set; }
@@ -21,19 +26,38 @@ namespace BinaryWriterTryout
         }
     }
 
+    class Player : IGameObject
+    {
+        public string Name { get; set; }
+        public int Health { get; set; }
+
+        public void Load(BinaryReader reader)
+        {
+            Name= reader.ReadString();
+            Health = reader.ReadInt32();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Name);
+            writer.Write(Health);
+        }
+    }
+
 
     class Game
     {
-        public List<Room> Rooms { get; private set; }
+        public Player Player { get; set; }
+        public List<IGameObject> GameObjects { get; private set; }
 
         public Game()
         {
-            Rooms = new List<Room>();
+            GameObjects = new List<IGameObject>();
         }
 
-        public void AddRoom (Room room)
+        public void AddGameObject (IGameObject room)
         {
-            Rooms.Add(room);
+            GameObjects.Add(room);
         }
     }
 
