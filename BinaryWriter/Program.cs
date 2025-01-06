@@ -12,7 +12,7 @@ namespace BinaryWriterTryout
     }
     interface IGame
     {
-        IGameObject getGameObject(Guid id);
+        IGameObject GetGameObject(Guid id);
     }
 
     interface IGameObject
@@ -70,7 +70,7 @@ namespace BinaryWriterTryout
             Name = reader.ReadString();
             Health = reader.ReadInt32();
             var currentRoomId = new Guid(reader.ReadBytes(16));
-            CurrentRoom = (Room)game.getGameObject(currentRoomId);
+            CurrentRoom = (Room)game.GetGameObject(currentRoomId);
         }
 
         public void Save(BinaryWriter writer)
@@ -109,16 +109,21 @@ namespace BinaryWriterTryout
     class Game: IGame
     {
         public Player Player { get; set; }
-        public List<IGameObject> GameObjects { get; private set; }
+        public Dictionary<Guid, IGameObject> GameObjects { get; private set; }
 
         public Game()
         {
-            GameObjects = new List<IGameObject>();
+            GameObjects = new Dictionary<Guid, IGameObject>();
         }
 
         public void AddGameObject(IGameObject gameObject)
         {
-            GameObjects.Add(gameObject);
+            GameObjects.Add(gameObject.Id,gameObject);
+        }
+
+        public IGameObject GetGameObject(Guid id)
+        {
+            return GameObjects[id];
         }
     }
 
@@ -131,10 +136,14 @@ namespace BinaryWriterTryout
             {
                 bw.Write(game.GameObjects.Count);
 
-                foreach (var gameObject in game.GameObjects)
+                foreach (var gameObject in game.GameObjects.Values)
                 {
                     bw.Write((int)gameObject.Type);
                     bw.Write(gameObject.Id.ToByteArray());
+                }
+
+                foreach (var gameObject in game.GameObjects.Values)
+                {
                     gameObject.Save(bw);
                 }
             }
@@ -145,9 +154,12 @@ namespace BinaryWriterTryout
             var game = new Game();
             using (var br = new BinaryReader(File.Open(filename, FileMode.Open)))
             {
+                var gameObjects = new List<IGameObject>();
+
                 var gameObjectCount = br.ReadInt32();
                 for (var i = 0; i < gameObjectCount; i++)
                 {
+
                     var type = (GameObjectType)br.ReadInt32();
                     var id = new Guid(br.ReadBytes(16));
 
@@ -168,8 +180,13 @@ namespace BinaryWriterTryout
                             obj = new Enemy(id);
                             break;
                     }
-                    obj.Load(br);
+                    gameObjects.Add(obj);
                     game.AddGameObject(obj);
+                }
+
+                foreach (var gameObject in gameObjects)
+                {
+                    gameObject.Load(game, br);
                 }
             }
             return game;
@@ -216,7 +233,7 @@ namespace BinaryWriterTryout
             persistence.SaveGame("game1.game", game);
 
             var loadedGame = persistence.LoadGame("game1.game");
-            foreach (var gameObject in loadedGame.GameObjects)
+            foreach (var gameObject in loadedGame.GameObjects.Values)
             {
                 var room = gameObject as Room;
                 if (room != null)
