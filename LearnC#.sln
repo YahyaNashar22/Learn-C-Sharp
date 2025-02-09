@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryWriterTryout", "Binar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParseVSTryParse", "ParseVSTryParse\ParseVSTryParse.csproj", "{131A1EEB-273C-4059-9656-3F46749B7E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashSetAndQueues", "HashSet\HashSetAndQueues.csproj", "{CE1CF0B2-9CAD-466F-B098-4DA686FF74C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashSetAndQueuesAndStacks", "HashSet\HashSetAndQueuesAndStacks.csproj", "{CE1CF0B2-9CAD-466F-B098-4DA686FF74C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

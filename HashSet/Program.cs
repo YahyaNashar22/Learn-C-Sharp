@@ -4,9 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine("--------- Welcome To HashSets And Queues ---------");
-            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("--------- Welcome To HashSets And Queues And Stacks ---------");
+            Console.WriteLine("-------------------------------------------------------------");
 
 
             HashSet<int> set = new();
@@ -22,16 +22,32 @@
                 Console.WriteLine(item);
             }
 
-            Console.WriteLine("For Queues you can have Enque() amd Dequeue() operations");
+            Console.WriteLine("For Queues you can have Enque() amd Dequeue() operations FIFO");
 
             Queue<int> queue = new Queue<int>();
 
-            queue.Enqueue(1); queue.Enqueue(2);queue.Enqueue(3);
+            queue.Enqueue(1); queue.Enqueue(2); queue.Enqueue(3);
 
             while (queue.Count > 0)
             {
                 int removed = queue.Dequeue();
+
+
                 Console.WriteLine($"removed {removed}");
+            }
+
+            Console.WriteLine("For Stacks it's the same with queues with Push() amd POP() operators but in reverse LIFO");
+
+            Stack<int> stack = new Stack<int>();
+
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            while (stack.Count > 0)
+            {
+                int popped = stack.Pop();
+                Console.WriteLine($"removed item {popped}");
             }
 
         }
