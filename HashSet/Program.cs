@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("---------------------------------------");
-            Console.WriteLine("--------- Welcome To HashSets ---------");
+            Console.WriteLine("--------- Welcome To HashSets And Queues ---------");
             Console.WriteLine("---------------------------------------");
 
 
@@ -20,6 +20,18 @@
             foreach (int item in set)
             {
                 Console.WriteLine(item);
+            }
+
+            Console.WriteLine("For Queues you can have Enque() amd Dequeue() operations");
+
+            Queue<int> queue = new Queue<int>();
+
+            queue.Enqueue(1); queue.Enqueue(2);queue.Enqueue(3);
+
+            while (queue.Count > 0)
+            {
+                int removed = queue.Dequeue();
+                Console.WriteLine($"removed {removed}");
             }
 
         }
